@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: friday-service
+  labels:
+    app: friday
+spec:
+  type: LoadBalancer
+  selector:
+    app: friday
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8000
