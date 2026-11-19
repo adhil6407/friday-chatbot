@@ -7,7 +7,7 @@ pipeline {
         SONAR_SERVER_NAME     = 'sonarqube_env'
         SONAR_SCANNER_TOOL    = 'sonar-scanner'
         GIT_CREDENTIALS_ID    = 'github-cred'
-        MANIFEST_REPO         = 'https://github.com/adhil6407/api-chatbot.git'
+        MANIFEST_REPO         = 'https://github.com/adhil6407/friday-chatbot.git'
         MANIFEST_BRANCH       = 'main'
     }
 
