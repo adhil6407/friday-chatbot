@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: friday
+  name: friday-chatbot
   labels:
-    app: friday
+    app: friday-chatbot
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: friday
+      app: friday-chatbot
   template:
     metadata:
       labels:
-        app: friday
+        app: friday-chatbot
     spec:
       containers:
-        - name: friday
-          image: adhil6407/friday:latest
+        - name: friday-chatbot
+          image: adhil6407/friday-chatbot:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8000

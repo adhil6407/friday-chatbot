@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-cred'
-        DOCKER_IMAGE          = 'adhil6407/fast-api-chatbot'
+        DOCKER_IMAGE          = 'adhil6407/friday-chatbot'
         SONAR_SERVER_NAME     = 'sonarqube_env'
         SONAR_SCANNER_TOOL    = 'sonar-scanner'
         GIT_CREDENTIALS_ID    = 'github-cred'
@@ -27,8 +27,8 @@ pipeline {
                     withSonarQubeEnv("${SONAR_SERVER_NAME}") {
                         sh """
                             ${scannerHome}/bin/sonar-scanner \
-                                -Dsonar.projectKey=fast-api-chatbot-key \
-                                -Dsonar.projectName='fast-api-chatbot-project' \
+                                -Dsonar.projectKey=friday-chatbot-key \
+                                -Dsonar.projectName='friday-chatbot-project' \
                                 -Dsonar.sources=. \
                                 -Dsonar.exclusions=**/venv/**,**/.venv/**,**/__pycache__/**,**/.pytest_cache/**,**/static/**
                         """
@@ -79,18 +79,18 @@ pipeline {
                             )
                         ]) {
                             sh """
-                                git remote set-url origin https://\$GH_USER:\$GH_TOKEN@github.com/adhil6407/api-chatbot.git
+                                git remote set-url origin https://\$GH_USER:\$GH_TOKEN@github.com/adhil6407/friday-chatbot.git
 
                                 git pull --rebase origin ${MANIFEST_BRANCH}
 
-                                sed -i '/name: fast-api-chatbot/{n;s|image:.*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|}' k8s/Deployment.yaml
+                                sed -i '/name: friday-chatbot/{n;s|image:.*|image: ${DOCKER_IMAGE}:${env.BUILD_NUMBER}|}' k8s/Deployment.yaml
 
                                 git config user.name "adhilzaed"
                                 git config user.email "adhilzaed@gmail.com"
 
                                 git add k8s/Deployment.yaml
 
-                                git commit -m "chore(manifest): update fast-api-chatbot image tag to ${env.BUILD_NUMBER} [skip ci]" || true
+                                git commit -m "chore(manifest): update friday-chatbot image tag to ${env.BUILD_NUMBER} [skip ci]" || true
 
                                 git push origin ${MANIFEST_BRANCH}
                             """
